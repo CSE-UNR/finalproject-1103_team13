@@ -35,10 +35,12 @@ Functionality: The user will provide a file name and then the program will read 
 an image of any size and display it to the user.
 
 displayCurrentImage()
+Input Parameters: int rows, int columns, int field 2D array, char moves 2D array
 Returned Output: void
 Functionality: The program will display the current saved image to the user.
 
 editingMenu()
+Input Parameters: int rows, int columns, char moves 2D array
 Returned Output: void
 Functionality: The user will be taken to another menu to edit the current image by cropping,
 dimming, brightening, or rotating (EC) it. Once one of the menu options is complete, the user
@@ -46,15 +48,18 @@ will be asked if they’d like to save the image to a file. If they choose to do
 prompted to provide a file name and then returned to the first menu.
 
 cropImage()
+Input Parameters: int rows, int columns, char moves 2D array
 Returned Output: void
 Functionality: The user will be provided with a way to select a smaller section of the original
 image that they would like to use as the edited image.
 
 dimImage()
+Input Parameters: int rows, int columns, char moves 2D array
 Returned Output: int
 Functionality: The program will dim the image by making each pixel one step “dimmer”.
 
 brightenImage()
+Input Parameters: int rows, int columns, char moves 2D array
 Returned Output: int
 Functionality: The program will brighten the image by making each pixel one step “brighter”.
 
