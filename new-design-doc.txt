@@ -1,0 +1,64 @@
+Design Document
+Sabrina Jauregui
+Erinstagram
+
+Data
+Image - 2D array of chars
+New image - 2D array of chars
+Edited image - 2D array of chars
+File pointers load image
+File name - string
+Continue choice - int
+
+Program Functionality
+A menu will be displayed to the user with 4 different options: load a new image, display the
+current image, edit the current image, or exit the program. If the user chooses the first option,
+they will be prompted to provide a file name for the new image. If the user chooses to edit the
+current image, they will be taken to another menu. In this menu, another 4 options will be
+displayed: they can crop the image, dim the image, brighten the image, or rotate the image. After
+one of the above options is complete, they will be prompted to save their edited image to a file. If
+they agree to save the image, the user will be prompted to provide a file name and then they will
+be taken back to the first menu. The user will be able to continue altering or displaying the image
+until they choose to exit the program from the main menu.
+
+Functions
+main()
+Data: 2D array for pixelated image, menu options, and variable for user choice.
+Functionality: Display menu to user with the options to either load a new image, display the
+current image, edit the current image, or exit the program. Will continue to prompt the user until
+they decide to exit the program.
+
+loadNewImage()
+Input parameter: char *fileName
+Returned Output: void
+Functionality: The user will provide a file name and then the program will read the contents of
+an image of any size and display it to the user.
+
+displayCurrentImage()
+Returned Output: void
+Functionality: The program will display the current saved image to the user.
+
+editingMenu()
+Returned Output: void
+Functionality: The user will be taken to another menu to edit the current image by cropping,
+dimming, brightening, or rotating (EC) it. Once one of the menu options is complete, the user
+will be asked if they’d like to save the image to a file. If they choose to do so, they will be
+prompted to provide a file name and then returned to the first menu.
+
+cropImage()
+Returned Output: void
+Functionality: The user will be provided with a way to select a smaller section of the original
+image that they would like to use as the edited image.
+
+dimImage()
+Returned Output: int
+Functionality: The program will dim the image by making each pixel one step “dimmer”.
+
+brightenImage()
+Returned Output: int
+Functionality: The program will brighten the image by making each pixel one step “brighter”.
+
+Extra Credit:
+rotateImage()
+Returned Output: int
+Functionality: The program will rotate the current image 90 degrees.
