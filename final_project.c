@@ -3,7 +3,7 @@
    
 #include <stdio.h>
 #define ROWS 23
-#define COLS 16
+#define COLS 23
 #define SIZE 100
 
 void loadImage(char *filename, int image[][COLS]);
@@ -30,6 +30,7 @@ int main(){
 			break;
 			case 2:
 				displayCurrentImage(image);
+			break;
 			case 3:
 				editImage();
 			break;
@@ -51,25 +52,52 @@ void loadImage(char *filename, int image[][COLS]){
 	
 	FILE *file = fopen(filename, "r");
 	
-	if(file = NULL){
+	if(file == NULL){
 		printf("Could not find an image with that filename.\n");
+		return;
 	}
+	
 	for(int i = 0; i < ROWS; i++){
 		for(int j = 0; j < COLS; j++){
-			fscanf(file, "%d", &image[i][j]);
+			fscanf(file, "%1d", &image[i][j]);
 		}
+		
 	}
 		fclose(file);
 }
 
 void displayCurrentImage(int image[][COLS]){
-	
-	for(int i = 0; i < ROWS; i++){
-		for(int j = 0; j < COLS; j++){
-			printf("%d", image[i][j]);
-		}
-	}
+ 
+    for(int i = 0; i < ROWS; i++){
+        for(int j = 0; j < COLS; j++){
+            switch(image[i][j]){
+            	case 0:
+            		printf(" ");
+            		break;
+            	case 1:
+            		printf(".");
+            		break;
+            	case 2:
+            		printf("o");
+            		break;
+            	case 3:
+            		printf("O");
+            		break;
+            	case 4:
+            		printf("0");
+            		break;
+            	default:
+            		printf(" ");
+            		break;
+            }
+            	
+        }
+        printf("\n"); 
+    }
 }
+
+	
+
 
 void editImage(){
 	int choice;
