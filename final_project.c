@@ -7,14 +7,14 @@
 #define SIZE 100
 
 void loadImage(char *filename, int image[][COLS]);
-void displayCurrentImage(int image[ROWS][COLS]);
+void displayCurrentImage(int image[][COLS]);
 void editImage(int image[][COLS]);
 void cropImage(int image[][COLS]);
-void dimImage(int image[ROWS][COLS]);
-void brightenImage(int image[ROWS][COLS]);
+void dimImage(int image[][COLS]);
+void brightenImage(int image[][COLS]);
 
 int main(){
-	int choice;
+	int choice, *k, *n, *m, *x;
 	int image[ROWS][COLS];
 	char filename[SIZE];
 	
@@ -72,7 +72,7 @@ void loadImage(char *filename, int image[][COLS]){
 }
 
 void displayCurrentImage(int image[][COLS]){
- 
+    
     for(int i = 0; i < ROWS; i++){
         for(int j = 0; j < COLS; j++){
             switch(image[i][j]){
@@ -107,7 +107,7 @@ void editImage(int image[][COLS]){
 	printf("\n");
 	printf("**EDITING**\n");
 	printf("1: Crop Image\n2: Dim Image\n3: Brighten image\n0: Return to the main menu\n");
-	printf("Choose from one of the options above: ");
+	printf("\nChoose from one of the options above: ");
 	scanf("%d", &choice);
 	
 	switch(choice){
@@ -128,11 +128,15 @@ void editImage(int image[][COLS]){
 }
 
 void cropImage(int image[][COLS]){
-	int leftCol, rightCol, topRow, botRow;
+	int leftCol, rightCol, topRow, botRow, row, col;
 	char choice, newFileName[SIZE];
+
+	row = botRow - topRow;
+	col = rightCol - leftCol;
 	
-	printf("The image you want to crop is 12 x 21.\n");
+	printf("\nThe image you want to crop is 16 x 23.\n");
 	printf("The row and column values start in the upper lefthand corner.\n");
+	printf("\n");
 	
 	printf("Which column do you want to be the new left side? ");
 	scanf("%d", &leftCol);
@@ -141,35 +145,41 @@ void cropImage(int image[][COLS]){
 	
 	printf("Which row do you want to be the new top? ");
 	scanf("%d", &topRow);
-	printf("Which row fo you want to be the bottom? ");
+	printf("Which row do you want to be the bottom? ");
 	scanf("%d",&botRow);
 	
-	for(int  i = topRow; i < botRow; i++){
-		for(int j = leftCol; j < rightCol; j++){
-			switch(image[i][j]){
-            	case 0:
-            		printf(" ");
-            		break;
-            	case 1:
-            		printf(".");
-            		break;
-            	case 2:
-            		printf("o");
-            		break;
-            	case 3:
-            		printf("O");
-            		break;
-            	case 4:
-            		printf("0");
-            		break;
-            	default:
-            		printf(" ");
-            		break;
-            }
-       }
-       printf("\n");
-    }
-    printf("Do you want to save this image to a file? (y/n): ");
+	for(int  i = 0; i < ROWS; i++){
+		for(int j = 0; j < COLS; j++){
+			if(i >= topRow && i < botRow && j >= leftCol && j < rightCol){
+				switch(image[i][j]){
+				    	case 0:
+				    		image[i][j] = 0;
+				    		break;
+				    	case 1:
+				    		image[i][j] = 1;
+				    		break;
+				    	case 2:
+				    		image[i][j] = 2;
+				    		break;
+				    	case 3:
+				    		image[i][j] = 3;
+				    		break;
+				    	case 4:
+				    		image[i][j] = 4;
+				    		break;
+				    	default:
+				    		image[i][j] = 0;
+				    		break;
+            			}
+			}
+			else{
+				image[i][j] = 0;
+			}
+		}
+	}
+	displayCurrentImage(image);
+	
+   	printf("Do you want to save this image to a file? (y/n): ");
 	scanf(" %c", &choice);  
 	
 	switch(choice){
@@ -183,12 +193,14 @@ void cropImage(int image[][COLS]){
 				printf("Could not save file.\n");
 			}
 		
-			for(int i = 0; i < ROWS; i++){
-				for(int j = 0; j < COLS; j++){
+			for(int i = 0; i < row; i++){
+				for(int j = 0; j < col; j++){
 					fprintf(newFile, "%d", image[i][j]);
 				}
 				fprintf(newFile, "\n");
 			}
+			printf("\nImage saved successfully!");
+			printf("\n");
 			
 		break;
 		case 'N':
@@ -232,6 +244,8 @@ void dimImage(int image[][COLS]){
 				}
 				fprintf(newFile2, "\n");
 			}
+			printf("\nImage saved successfully!");
+			printf("\n");
 			
 		break;
 		case 'N':
@@ -242,7 +256,7 @@ void dimImage(int image[][COLS]){
 	}
 }
 
-void brightenImage(int image[ROWS][COLS]){
+void brightenImage(int image[][COLS]){
 	char choice, newFileName[SIZE];
 	
 	for(int i = 0; i < ROWS; i++){
@@ -275,6 +289,8 @@ void brightenImage(int image[ROWS][COLS]){
 				}
 				fprintf(newFile3, "\n");
 			}
+			printf("\nImage saved successfully!");
+			printf("\n");
 			
 		break;
 		case 'N':
