@@ -9,7 +9,7 @@
 
 void loadImage(char *filename, int image[][COLS]);
 void displayCurrentImage(int image[ROWS][COLS]);
-void editImage(char *filename, int image[ROWS][COLS]);
+void editImage(int image[ROWS][COLS]);
 void cropImage(int image[ROWS][COLS]);
 void dimImage(int image[ROWS][COLS]);
 void brightenImage(int image[ROWS][COLS]);
@@ -34,7 +34,7 @@ int main(){
 				displayCurrentImage(image);
 			break;
 			case 3:
-				editImage(filename, image);
+				editImage(image);
 			break;
 			case 0:
 				printf("Goodbye!\n");
@@ -101,7 +101,7 @@ void displayCurrentImage(int image[][COLS]){
 	
 
 
-void editImage(char *filename, int image[][COLS]){
+void editImage(int image[][COLS]){
 	int choice;
 	
 	printf("**EDITING**\n");
@@ -131,7 +131,6 @@ void editImage(char *filename, int image[][COLS]){
 void cropImage(int image[][COLS]){
 	
 	int leftCol, rightCol, topRow, botRow;
-	char choice, newFileName[SIZE];
 	
 	printf("The image you want to crop is 12 x 21.\n");
 	printf("The row and column values start in the upper lefthand corner.\n");
@@ -146,63 +145,38 @@ void cropImage(int image[][COLS]){
 	printf("Which row fo you want to be the bottom? ");
 	scanf("%d",&botRow);
 	
-	for(int  i = topRow; i < botRow; i++){
-		for(int j = leftCol; j < rightCol; j++){
-			switch(image[i][j]){
-            	case 0:
-            		printf(" ");
-            		break;
-            	case 1:
-            		printf(".");
-            		break;
-            	case 2:
-            		printf("o");
-            		break;
-            	case 3:
-            		printf("O");
-            		break;
-            	case 4:
-            		printf("0");
-            		break;
-            	default:
-            		printf(" ");
-            		break;
-            }
-       }
-       printf("\n");
-    }
-    printf("Do you want to save this image to a file? (y/n): ");
-	scanf(" %c", &choice);  
-	
-	switch(choice){
-		case 'Y':
-		case 'y':
-			printf("What do you want to name the image file? (inlcude the extension) ");
-			scanf("%s", newFileName);
-		
-			FILE *newFile = fopen(newFileName, "w");
-			if(newFile == NULL){
-				printf("Could not save file.\n");
+	for(int  i = 0; i < ROWS; i++){
+		for(int j = 0; j < COLS; j++){
+			if(i >= topRow && i < botRow && j >= leftCol && j < rightCol){
+				switch(image[i][j]){
+				    	case 0:
+				    		image[i][j] = 0;
+				    		break;
+				    	case 1:
+				    		image[i][j] = 1;
+				    		break;
+				    	case 2:
+				    		image[i][j] = 2;
+				    		break;
+				    	case 3:
+				    		image[i][j] = 3;
+				    		break;
+				    	case 4:
+				    		image[i][j] = 4;
+				    		break;
+				    	default:
+				    		image[i][j] = 0;
+				    		break;
+            			}
 			}
-		
-			for(int i = 0; i < ROWS; i++){
-				for(int j = 0; j < COLS; j++){
-					fprintf(newFile, "%d", image[i][j]);
-				}
-				fprintf(newFile, "\n");
+			else{
+				image[i][j] = 0;
 			}
-			
-		break;
-		case 'N':
-		case 'n':
-		break;
-		default:
-			printf("Invalid option.\n");
-	} 
-
-
-
+		}
+	}
+	displayCurrentImage(image);
 }
+
 
 
 
