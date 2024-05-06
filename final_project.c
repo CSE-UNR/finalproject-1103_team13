@@ -1,4 +1,4 @@
-/* Author: Sabrina Jauregui
+/* Author: Sabrina Jauregui & Anthony Felix
    Purpose: Final Project */
    
 #include <stdio.h>
